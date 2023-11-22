@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <form action="" method="POST" id="contact_form_ajax">
+        <h4 class="mtext-105 cl2 txt-center p-b-30">
+            Send Us A Message
+        </h4>
+         {% csrf_token %}
+        <div class="bor8 m-b-20 how-pos4-parent">
+            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="fname" id="fname" placeholder="First Name">
+            
+            
+        </div>
+        <div class="bor8 m-b-20 how-pos4-parent">
+            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" id="email"  placeholder="Your Email">
+            
+            
+        </div>
+        <div class="bor8 m-b-20 how-pos4-parent">
+            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="phone" id="phone"  placeholder="Your Phone">
+            
+        
+        </div>
+        <div class="bor8 m-b-20 how-pos4-parent">
+            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="subject" id="subject"  placeholder="Subject">
+            
+        
+        </div>
+    
+        <div class="bor8 m-b-30">
+            <textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="msg" id="msg"  placeholder="How Can We Help?"></textarea>
+        </div>
+    
+        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+            Submit
+        </button>
+    </form>
+
+    <script>
+        $(document).on("submit","#contact_form_ajax",function(e){
+        e.preventDefault()
+        console.log("submited...");
+    
+        let full_name = $("#fname").val()
+        let email = $("#email").val()
+        let phone = $("#phone").val()
+        let subject = $("#subject").val()
+        let message = $("#msg").val()
+     
+        console.log(full_name);
+        console.log(email);
+    
+        console.log(phone);
+        console.log(subject);
+        console.log(message);
+
+        $.ajax({
+            url:"/ajax_form",
+            data:{
+                "full_name":full_name,
+                "email":email,
+
+                "phone":phone,
+
+                "subject":subject,
+                "message":message,
+
+            },
+            dataType:"json",
+            beforeSend:function(){
+                console.log("sending data to server");
+
+            },
+            success:function(res){
+                console.log("sent data to server");
+ 
+            }
+        })
+    
+    })
+    </script>
+
+</body>
+</html>

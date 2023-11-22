@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User  
 from django.contrib import messages ,auth
 from .models import *
+
+from django.http import JsonResponse
 # Create your views here.
 def index(request):
 
@@ -11,23 +13,58 @@ def index(request):
    dict_banner= {
       'banners':Main.objects.all()
    }
-   dict_product= {
-      'products':Product.objects.all()
-   }
-   context = {**dict_banner, **dict_product,**dict_main_banner}
+   
+   context = {**dict_banner,**dict_main_banner}
    return render(request,"index.html",context)
 
-def shop(request):
+def shop(request,val):
+ 
     return render(request,"shop.html")
 
 def nameboards(request):
     return render(request,"nameboards.html")
 
 def numberplates(request):
-    return render(request,"numberplates.html")
+  
+   return render(request,"numberplates.html")
 
 def about(request):
     return render(request,"about.html")
+
+def contact(request):
+    return render(request,"contact.html")
+
+def ajax_contact(request):
+    pass
+
+
+
+
+def form(request):
+    
+    return render(request,"form.html")
+
+def ajax_form_demo(request):
+    full_name =request.GET['full_name']
+    email =request.GET['email']
+    phone=request.GET['phone']
+    subject=request.GET['subject']
+    message =request.GET['message']
+
+    form =Contact.objects.create(
+       full_name=full_name,
+       email=email,
+       phone=phone,
+       subject=subject,
+       message=message,
+
+    )
+    data ={
+       "bool":True,
+       "message":"message sent successfully"
+    }
+    return JsonResponse({"data":data})
+
 
 
 def product_detail(request):
