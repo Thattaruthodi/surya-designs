@@ -15,7 +15,9 @@ def index(request):
       'products':Product.objects.all()
    }
    context = {**dict_banner, **dict_product,**dict_main_banner}
+
    return render(request,"index.html",context)
+
 
 def shop(request):
     return render(request,"shop.html")
