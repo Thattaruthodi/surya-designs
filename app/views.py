@@ -1,26 +1,39 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User  
 from django.contrib import messages ,auth
-from .models import *
+from .models import Product
 # Create your views here.
+# def index(request):
+
+   
+#    products= Product.objects.filter(product_status="published",featured=True)
+
+#    context = {
+#               "products":products
+#               }
+
+#    return render(request,"index.html",context)
+
 def index(request):
+    query = request.GET.get('search-product', '')  
 
-   dict_main_banner= {
-      'main_banner':Main_banner.objects.all()
-   }
-   dict_banner= {
-      'banners':Main.objects.all()
-   }
-   dict_product= {
-      'products':Product.objects.all()
-   }
-   context = {**dict_banner, **dict_product,**dict_main_banner}
-
-   return render(request,"index.html",context)
-
+    if query:
+      products = Product.objects.filter(title__icontains=query)
+    else:
+        products = Product.objects.all()
+    context = {
+        "products": products,
+        "search_query": query,  
+    }
+    return render(request, "index.html", context)
 
 def shop(request):
-    return render(request,"shop.html")
+   products = Product.objects.all()
+   context = {
+        "products": products,
+       
+      }
+   return render(request,"shop.html",context)
 
 def nameboards(request):
     return render(request,"nameboards.html")
@@ -60,7 +73,7 @@ def register(request):
             
             messages.success(request,"congratulation User Registered Successfully") 
       else: 
-         messages.warning(request,'password is not matching  ') 
+         messages.warning(request,'password is not matching') 
           
          return redirect('register') 
       return redirect('/')  
@@ -89,3 +102,18 @@ def  login(request):
 def logout(request): 
    auth.logout(request) 
    return redirect('login')  
+
+
+# dict_main_banner= {
+   #    'main_banner':Main_banner.objects.all()
+   # }
+   # dict_banner= {
+   #    'banners':Main.objects.all()
+   # }
+   # dict_product= {
+   #    'products':Product.objects.filter(product_status="published",featured=True),
+       
+        
+   # }
+   # **dict_banner,
+    #   **dict_main_banner,
