@@ -15,7 +15,7 @@ urlpatterns = [
     path('register',views.register,name='register'),
     path('login',views.login,name='login'),
 
-    path('product_detail',views.product_detail,name='product_detail'),
+    path('product/<pid>/',views.product_detail_view,name='product_detail_view'),
 
 
 ]

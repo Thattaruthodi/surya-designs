@@ -139,5 +139,5 @@ JAZZMIN_SETTINGS = {
     'site_brand':"Surya Designs",
     'site_logo':"images/icons/sd-logo.jpg",
     'copyright':"surya-designs.com",
-
+                                                                  
 }

@@ -126,8 +126,8 @@ class Product(models.Model):
         return new_price
     
 class ProductImages(models.Model):
-    image = models.ImageField(upload_to="product_images" , default="product.jpg")
-    product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
+    images = models.ImageField(upload_to="product_images" , default="product.jpg")
+    product = models.ForeignKey(Product,related_name="p_images", on_delete=models.SET_NULL,null=True)
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:

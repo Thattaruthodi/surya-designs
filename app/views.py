@@ -45,8 +45,15 @@ def about(request):
     return render(request,"about.html")
 
 
-def product_detail(request):
-    return render(request,"product_detail.html")
+def product_detail_view(request,pid):
+    product = Product.objects.get(pid=pid) 
+   
+    p_image = product.p_images.all()
+    context = {
+       "p":product,
+       "p_image":p_image
+    }
+    return render(request,"product_detail.html",context)
 
 def register(request): 
    if request.method == 'POST' : 
