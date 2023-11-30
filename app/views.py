@@ -1,39 +1,64 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User  
 from django.contrib import messages ,auth
-from .models import Product
+from .models import *
 # Create your views here.
-# def index(request):
 
-   
-#    products= Product.objects.filter(product_status="published",featured=True)
 
-#    context = {
-#               "products":products
-#               }
-
-#    return render(request,"index.html",context)
 
 def index(request):
-    query = request.GET.get('search-product', '')  
 
-    if query:
-      products = Product.objects.filter(title__icontains=query)
-    else:
-        products = Product.objects.all()
-    context = {
-        "products": products,
-        "search_query": query,  
-    }
-    return render(request, "index.html", context)
+   dict_products= {
+      'products':Product.objects.all()
+   }
+   
+   dict_main_banner= {
+      'main_banner':Main_banner.objects.all()
+   }
+   dict_banner= {
+      'banners':Main.objects.all()
+   }
+
+   context = {
+              **dict_products, **dict_main_banner,**dict_banner
+              }
+
+   return render(request,"index.html",context)
+
+# def index(request):
+#     query = request.GET.get('search-product', '')  
+
+#     if query:
+#       products = Product.objects.filter(title__icontains=query)
+#     else:
+#         products = Product.objects.all()
+#     context = {
+#         "products": products,
+#         "search_query": query,  
+#     }
+#     return render(request, "index.html", context)
+
+def categories(request):
+   categories = Category.objects.all()
+
+   context = {
+    
+        "categories":categories,
+       
+      }
+   return render(request,"categories.html",context)
 
 def shop(request):
    products = Product.objects.all()
+  
    context = {
         "products": products,
        
+       
       }
    return render(request,"shop.html",context)
+
+
 
 def nameboards(request):
     return render(request,"nameboards.html")
@@ -44,16 +69,24 @@ def numberplates(request):
 def about(request):
     return render(request,"about.html")
 
+def desknameplates(request):
+    return render(request,"desknameplates.html")
+
+
 
 def product_detail_view(request,pid):
-    product = Product.objects.get(pid=pid) 
-   
-    p_image = product.p_images.all()
-    context = {
+   #  product = Product.objects.get(pid=pid) 
+   product = get_object_or_404(Product,pid=pid)
+   p_image = product.p_images.all()
+
+   context = {
        "p":product,
        "p_image":p_image
-    }
-    return render(request,"product_detail.html",context)
+        }
+   
+   return render(request,"product_detail.html",context)
+
+
 
 def register(request): 
    if request.method == 'POST' : 
@@ -111,16 +144,35 @@ def logout(request):
    return redirect('login')  
 
 
-# dict_main_banner= {
-   #    'main_banner':Main_banner.objects.all()
-   # }
-   # dict_banner= {
-   #    'banners':Main.objects.all()
-   # }
-   # dict_product= {
-   #    'products':Product.objects.filter(product_status="published",featured=True),
-       
-        
-   # }
-   # **dict_banner,
-    #   **dict_main_banner,
+
+from PIL import Image, ImageDraw, ImageFont
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def generate_image(request):
+    # Get the text you want to add dynamically
+    dynamic_text = "Your dynamic text here"
+
+    # Open an image using Pillow
+    base_image = Image.open('static/images/illam-1.jpg')
+
+    # Create a drawing context to add text to the image
+    draw = ImageDraw.Draw(base_image)
+    
+    # Define font style and size
+    font = ImageFont.truetype("", 36)
+
+    # Calculate text size and position
+    text_width, text_height = draw.textsize(dynamic_text, font=font)
+    image_width, image_height = base_image.size
+    text_position = ((image_width - text_width) // 2, (image_height - text_height) // 2)
+
+    # Add the text to the image
+    draw.text(text_position, dynamic_text, font=font, fill="white")
+
+    # Save the modified image
+    response = HttpResponse(content_type="image/jpeg")
+    base_image.save(response, "JPEG")
+    return response
+
+
