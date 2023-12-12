@@ -99,27 +99,7 @@ function DrawPlaceholder() {
     img.src = 'https://unsplash.it/400/400/?random';
   
 }
-// function DrawOverlay(img) {
-//     ctx.drawImage(img,0,0);
-//     ctx.fillStyle = 'rgba(30, 144, 255, 0.4)';
-//     ctx.fillRect(0, 0, canvas.width, canvas.height);
-// }
 
-
-
-// function DrawOverlay(img) {
-//     ctx.drawImage(img, 0, 0);
-//     ctx.fillStyle = 'black';
-
-//     // Change the height and width of the white overlay
-//     const overlayWidth = canvas.width * 0.75; // For example, set the width to 75% of canvas width
-//     const overlayHeight = canvas.height * 0.5; // For example, set the height to 50% of canvas height
-
-//     const overlayX = (canvas.width - overlayWidth) / 2; // Calculate X position for centering
-//     const overlayY = (canvas.height - overlayHeight) / 2; // Calculate Y position for centering
-
-//     ctx.fillRect(overlayX, overlayY, overlayWidth, overlayHeight);
-// }
 
 function DrawText() {
     ctx.fillStyle = "white";
@@ -127,36 +107,6 @@ function DrawText() {
     ctx.font = "30px 'Montserrat'";
     ctx.fillText(text_title, 50, 50);
 }
-// function DynamicText(img) {
-//   document.getElementById('name').addEventListener('keyup', function() {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//     DrawOverlay(img);
-//     DrawText(); 
-//     text_title = this.value;
-//     ctx.fillText(text_title, 50, 50);
-//   });
-// }
-
-// function DynamicText(img) {
-//   document.getElementById('name').addEventListener('keyup', function() {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//     DrawOverlay(img);
-//     DrawText(); 
-//     text_title = this.value;
-
-//     // Calculate the width of the text
-//     const textWidth = ctx.measureText(text_title).width;
-
-//     // Calculate the X position for centering the text within the canvas
-//     const centerX = (canvas.width - textWidth) / 2;
-
-//     // Calculate Y position (Assuming the text is 20px in height and you want it vertically centered)
-//     const centerY = (canvas.height + 20) / 2;
-
-//     // Fill text at the calculated position
-//     ctx.fillText(text_title, centerX, centerY);
-//   });
-// }
 
 function DrawOverlay(img) {
     ctx.drawImage(img, 0, 0);

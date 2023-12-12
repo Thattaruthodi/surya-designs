@@ -39,6 +39,10 @@
 <!--===============================================================================================-->
 <link href="{% static 'https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap' %}" rel="stylesheet">
 
+
+{% block style %}
+{% endblock %}
+
 </head>
 <body>
 
@@ -84,7 +88,7 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="">Home</a>
+								<a href="{% url 'index' %}">Home</a>
 							
 							</li>
 							<li>
@@ -644,3 +648,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 </body>
 </html>
+
+{% block script %}
+{% endblock %}
