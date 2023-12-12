@@ -20,11 +20,15 @@ urlpatterns = [
 
     path('register',views.register,name='register'),
     path('login',views.login,name='login'),
+    path('login1',views.login1,name='login1'),
+    path('create_account',views.create_account,name='create_account'),
 
-    path('product/<pid>/',views.product_detail_view,name='product_detail_view'),
+
+    path('product_detail_view/<pid>/',views.product_detail_view,name='product_detail_view'),
+    
+    path('live',views.live,name='live'),
 
 
-    path('generate-image/', generate_image, name='generate_image'),
 ]
 
 

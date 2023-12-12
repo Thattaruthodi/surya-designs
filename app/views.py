@@ -25,18 +25,7 @@ def index(request):
 
    return render(request,"index.html",context)
 
-# def index(request):
-#     query = request.GET.get('search-product', '')  
 
-#     if query:
-#       products = Product.objects.filter(title__icontains=query)
-#     else:
-#         products = Product.objects.all()
-#     context = {
-#         "products": products,
-#         "search_query": query,  
-#     }
-#     return render(request, "index.html", context)
 
 def categories(request):
    categories = Category.objects.all()
@@ -49,16 +38,55 @@ def categories(request):
    return render(request,"categories.html",context)
 
 def shop(request):
-   products = Product.objects.all()
-  
+   query = request.GET.get('search-product', '')  
+   if query:
+      products = Product.objects.filter(title__icontains=query)
+   else:
+        products = Product.objects.all()
    context = {
         "products": products,
-       
-       
-      }
+        "search_query": query,  
+    }
+  
    return render(request,"shop.html",context)
 
+def login1(request):
+    return render(request,"login1.html")
 
+
+
+def create_account(request):
+   if request.method == 'POST' : 
+      first_name=request.POST['first_name'] 
+      last_name=request.POST['last_name'] 
+      email=request.POST['email'] 
+      password1=request.POST['password1'] 
+      password2=request.POST['password2'] 
+       
+      
+ 
+ 
+      if password1 == password2 : 
+        
+         if User.objects.filter(email=email).exists()  : 
+            messages.info(request,'email is taken') 
+            return redirect('register') 
+         else:      
+            user=User.objects.create_user(password1=password1,email=email,first_name=first_name,last_name=last_name) 
+            user.save(); 
+            
+            messages.success(request,"congratulation User Registered Successfully") 
+      else: 
+         messages.warning(request,'password is not matching') 
+          
+         return redirect('register') 
+      return redirect('/')  
+   else: 
+    
+    return render(request,"create_account.html")
+
+def live(request):
+    return render(request,"live.html")
 
 def nameboards(request):
     return render(request,"nameboards.html")
@@ -77,14 +105,18 @@ def desknameplates(request):
 def product_detail_view(request,pid):
    #  product = Product.objects.get(pid=pid) 
    product = get_object_or_404(Product,pid=pid)
+   products = Product.objects.filter(category=product.category).exclude(pid=pid)
    p_image = product.p_images.all()
 
    context = {
        "p":product,
-       "p_image":p_image
+       "p_image":p_image,
+       "products":products
         }
    
-   return render(request,"product_detail.html",context)
+   return render(request,"product_detail_view.html",context)
+
+
 
 
 

@@ -11,6 +11,17 @@
 
 {% block content %}
 
+<div class="dis-none panel-search w-full p-t-10 p-b-15">
+    <form action="{% url 'search' %}" method="GET">
+    <div class="bor8 dis-flex p-l-15">
+        
+        <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="q" placeholder="Search">
+        <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04" type="submit">
+            <i class="zmdi zmdi-search"></i>
+        </button>
+    </div>	
+</form>
+</div>
 
 <section>
 	<div class="sec-banner bg0 p-t-100 p-b-50">
@@ -28,7 +39,7 @@
 							<img src="{{ c.image.url }}" alt="IMG-BANNER" style="height: 250px; object-fit: cover;">
 							
 						
-						<a href="" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="{% url 'shop' %}" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								
 
@@ -45,10 +56,9 @@
 							</div>
 						</a>
 					</div>
-					<a href=""><span class="block1-name ltext-100 trans-04 p-b-8">
+					<span class="block1-name ltext-100 trans-04 p-b-8">
 						{{c.title}}
 					</span>
-				</a>
 				</div>
 				{% endfor %}
 

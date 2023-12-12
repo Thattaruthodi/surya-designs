@@ -7,7 +7,7 @@
 <!-- Product -->
 	{% block content %}
 
-<img src="{% url 'generate_image' %}" alt="Dynamic Image">
+<img src="" alt="Dynamic Image">
 
 <section style="margin-top: 100px;">
 
@@ -52,9 +52,19 @@ By Use					</button>
 						Search
 					</div>
 				</div>
+				<form action="{% url 'shop' %}" method="get">
+					<div class="dis-none panel-search w-full p-t-10 p-b-15">
+						<div class="bor8 dis-flex p-l-15">
+							<button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+								<i class="zmdi zmdi-search"></i>
+							</button>
 				
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search" value="{{ search_query }}">
+						</div>
+					</div>
+				</form>
 				<!-- Search product -->
-				<div class="dis-none panel-search w-full p-t-10 p-b-15">
+				<!-- <div class="dis-none panel-search w-full p-t-10 p-b-15">
 					<div class="bor8 dis-flex p-l-15">
 						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
@@ -62,7 +72,7 @@ By Use					</button>
 
 						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
 					</div>	
-				</div>
+				</div> -->
 
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
@@ -264,14 +274,14 @@ By Use					</button>
 						<div class="block2-pic hov-img0">
 							<img src="{{ p.image.url}}" style="height: 250px;">
 
-							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+							<a href="{% url 'product_detail_view' p.pid %}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Quick View
 							</a>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="{% url 'product_detail_view' p.pid %}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     {{p.title}}
 								</a>
 
@@ -296,7 +306,7 @@ By Use					</button>
 
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
-				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+				<a href="" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
 					Load More
 				</a>
 			</div>
