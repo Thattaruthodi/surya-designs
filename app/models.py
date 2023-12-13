@@ -137,22 +137,15 @@ class ProductImages(models.Model):
     class Meta:
         verbose_name_plural = "product Images"
     
-class ProductReview(models.Model):
-    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
-    product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
-    date = models.DateTimeField(auto_now_add=True)
-    review = models.TextField()
-    rating = models.IntegerField(choices=RATING, default="1")
-    date = models.DateTimeField(auto_now_add=True)
+# class ProductReview(models.Model):
+#     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+#     product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
+#     date = models.DateTimeField(auto_now_add=True)
+#     review = models.TextField()
+#     rating = models.IntegerField(choices=RATING, default=1)
+#     date = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name_plural = "Product Reviews"
 
-    def __str__(self):
-        return self.product.title
-    
-    def get_rating(self):
-        return self.rating
 
 class Wishlist(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
@@ -173,3 +166,18 @@ class Address(models.Model):
     class Meta:
         verbose_name_plural = "address"
 
+class Review(models.Model):
+    Product = models.ForeignKey(Product,related_name='reviews',on_delete=models.CASCADE)
+    rating = models.IntegerField(default=3)
+    content = models.TextField()
+    created_by = models.ForeignKey(User,related_name='reviews',on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Product Reviews"
+
+    def __str__(self):
+        return self.product.title
+    
+    def get_rating(self):
+        return self.rating

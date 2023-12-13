@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from app.models import Main_banner,Main,Product,Category,Vendor,ProductImages,ProductReview,Wishlist,Address
+from app.models import Main_banner,Main,Product,Category,Vendor,ProductImages,Wishlist,Address,Review
 # Register your models here.
 
 class ProductImagesAdmin(admin.TabularInline):
@@ -16,8 +16,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class VendorAdmin(admin.ModelAdmin):
     list_display = ['title','vendor_image']
 
-class ProductReviewAdmin(admin.ModelAdmin):
-    list_display = ['user','product', 'review', 'rating']
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['Product','rating', 'content', 'created_by','created_at']
 
 class WishlistAdmin(admin.ModelAdmin):
     list_display = ['user','product', 'date']
@@ -30,7 +32,9 @@ admin.site.register(Main)
 admin.site.register(Product,ProductAdmin)
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Vendor,VendorAdmin)
-admin.site.register(ProductReview,ProductReviewAdmin)
+
+admin.site.register(Review,ReviewAdmin)
+
 admin.site.register(Wishlist,WishlistAdmin)
 admin.site.register(Address,AddressAdmin)
 

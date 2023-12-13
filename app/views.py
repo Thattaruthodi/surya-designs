@@ -108,6 +108,29 @@ def product_detail_view(request,pid):
    products = Product.objects.filter(category=product.category).exclude(pid=pid)
    p_image = product.p_images.all()
 
+   if request.method =='POST':
+      rating = request.POST.get('rating',3)
+      content = request.POST.get('content','')
+
+      if content:
+         reviews = Review.objects.filter(created_by=request.user,product=product)
+         
+         if reviews.count() >0:
+            review =reviews.first()
+            review.rating = rating
+            review.content = content
+            review.save()
+
+         else:
+
+            review = Review.objects.create(
+              product=product,
+              rating=rating,
+              content=content,
+              created_by = request.user
+              )
+            
+         return redirect('product_detail_view')
    context = {
        "p":product,
        "p_image":p_image,
